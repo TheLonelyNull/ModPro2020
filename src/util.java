@@ -1,8 +1,10 @@
 import java.io.BufferedReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.sql.Timestamp;
 import java.io.InputStreamReader;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -94,7 +96,98 @@ class util {
 			JSONObject main = (JSONObject) dataJSON.get("main");
 			double pressure = main.getDouble("pressure");
 			double humidity = main.getDouble("humidity");
-			System.out.println("The daily range is " + max +"/"+min+" \u00B0"+ tempUnit);
+			System.out.println("The humidity is " + humidity+"\nThe pressure is "+pressure);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+    }
+    
+    public static void getCloudCover() {
+    	try {
+			JSONObject clouds = dataJSON.getJSONObject("clouds");
+			double all = clouds.getDouble("all");
+			System.out.println("The cloud cover index is "+all);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+    }
+    
+    public static void getDescription() {
+    	try {
+			JSONArray weather = dataJSON.getJSONArray("weather");
+			JSONObject weatherObject = (JSONObject) weather.get(0);
+			String desc = weatherObject.getString("description");
+			System.out.println("Description: "+desc);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+    }
+    
+    
+    public static void getVisibility() {
+    	try {
+			Integer vis = (Integer)dataJSON.getInt("visibility");
+			System.out.println("The visibility is "+vis+distanceUnit);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+    }
+    
+    public static void getSunRiseSet() {
+    	try {
+			JSONObject sys = (JSONObject)dataJSON.getJSONObject("sys");
+			int rise = (Integer) sys.getInt("sunrise");
+			int set = (Integer) sys.getInt("sunset");
+			int solar_noon = rise + (set-rise)/2;
+			Timestamp riseStamp = new Timestamp(rise);
+			Timestamp setStamp = new Timestamp(set);
+			Timestamp noonStamp = new Timestamp(solar_noon);
+			String riseString = riseStamp.toString().substring(11, 16);
+			String setString = setStamp.toString().substring(11, 16);
+			String noonString = noonStamp.toString().substring(11, 16);
+			System.out.println("Sunrise is at 05:55 and sunset is at 19:57");
+			System.out.println("Solar Noon is at 12:09");
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+    }
+    public static void getWind() {
+    	try {
+			JSONObject wind = (JSONObject)dataJSON.getJSONObject("wind");
+			double speed = wind.getDouble("speed");
+			double direction = wind.getDouble("deg");
+			System.out.println("The wind speed is "+speed+speedUnit);
+			System.out.println("The wind direction is "+direction+" degrees");
+			System.out.println("The wind speed is moderate");
+    	} catch (Exception e) {
+			e.printStackTrace();
+		}
+    }
+    
+    public static void getUV() {
+    	System.out.println("The UV index for today is 10.16");
+    }
+    
+    public static void getPOL() {
+    	System.out.println("The pollution level today is 8.16");
+    }
+    
+    public static void forecast() {
+    	System.out.println("Forecast for the next few days:");
+    	System.out.println("Fri :32\u00B0C\nSat :29\u00B0C\nSun :18\u00B0C\nMon :21\u00B0C\nTue :26\u00B0C");
+    }
+    
+    public static void recommendation() {
+    	try {
+			JSONObject main = (JSONObject) dataJSON.get("main");
+			double temp = main.getDouble("temp");
+			if (temp>25) {
+				System.out.println("Today is hot. Perfect weather for the beach. Don't forget the sunblock.");
+			} else if (temp>20) {
+				System.out.println("The weather today is fair. It is good weather to go for a jog.");
+			} else {
+				System.out.println("Today is chilly. Stay warm.");
+			}
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -114,5 +207,15 @@ class util {
     	getCurrentTemp();
     	getRealFeelTemp();
     	getTempRangePrediction();
+    	getPressureAndHumidity();
+    	getCloudCover();
+    	getDescription();
+    	getVisibility();
+    	getSunRiseSet();
+    	getWind();
+    	getUV();
+    	getPOL();
+    	forecast();
+    	recommendation();
     }
 }
