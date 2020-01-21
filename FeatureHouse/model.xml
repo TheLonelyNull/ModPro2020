@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<featureModel>
+    <properties/>
+    <struct>
+        <and abstract="true" mandatory="true" name="ModuWeather">
+            <feature mandatory="true" name="Location"/>
+            <alt abstract="true" mandatory="true" name="Unit">
+                <feature name="Metric"/>
+                <feature name="Imperial"/>
+            </alt>
+            <or abstract="true" mandatory="true" name="Temperature">
+                <feature name="Current"/>
+                <feature name="Prediction"/>
+                <feature name="Real"/>
+            </or>
+            <or abstract="true" name="Description">
+                <feature name="Rain_data"/>
+                <feature name="Weather"/>
+                <and name="Sunrise_and_sunset">
+                    <feature name="Solar_noon"/>
+                </and>
+                <feature name="Cloud"/>
+                <feature name="Visibility"/>
+            </or>
+            <or abstract="true" name="Health">
+                <feature name="UV_Index"/>
+                <feature name="Airpollution"/>
+                <feature name="Activity"/>
+            </or>
+            <feature name="Forecast"/>
+            <or abstract="true" name="Wind">
+                <feature name="Speed"/>
+                <feature name="Direction"/>
+                <feature name="Summary"/>
+            </or>
+        </and>
+    </struct>
+    <constraints>
+        <rule>
+            <imp>
+                <var>Activity</var>
+                <var>Current</var>
+            </imp>
+        </rule>
+        <rule>
+            <imp>
+                <var>Activity</var>
+                <var>Rain_data</var>
+            </imp>
+        </rule>
+        <rule>
+            <imp>
+                <var>Activity</var>
+                <var>Weather</var>
+            </imp>
+        </rule>
+        <rule>
+            <imp>
+                <var>Activity</var>
+                <var>UV_Index</var>
+            </imp>
+        </rule>
+        <rule>
+            <imp>
+                <var>Activity</var>
+                <var>Summary</var>
+            </imp>
+        </rule>
+    </constraints>
+    <calculations Auto="true" Constraints="true" Features="true" Redundant="true" Tautology="true"/>
+    <comments/>
+    <featureOrder userDefined="false"/>
+</featureModel>

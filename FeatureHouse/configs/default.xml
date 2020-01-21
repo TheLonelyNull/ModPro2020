@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<configuration>
+    <feature automatic="selected" name="ModuWeather"/>
+    <feature automatic="selected" name="Location"/>
+    <feature automatic="selected" name="Unit"/>
+    <feature manual="selected" name="Metric"/>
+    <feature automatic="unselected" name="Imperial"/>
+    <feature automatic="selected" name="Temperature"/>
+    <feature manual="selected" name="Current"/>
+</configuration>
