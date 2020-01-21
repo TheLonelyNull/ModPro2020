@@ -8,13 +8,19 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-class util {
+class Main {
 	private static String data;
 	private static JSONObject dataJSON;
+	//#if Metric
 	private static String tempUnit = "C";
 	private static String distanceUnit = "m";
 	private static String speedUnit = "km/h";
-	
+	//#endif
+	//#if Imperial
+//@	private static String tempUnit = "F";
+//@	private static String distanceUnit = "miles";
+//@	private static String speedUnit = "mph";
+	//#endif
     public static void getDataHotel(String unit) {
         try {
             URL url = new URL(
@@ -146,8 +152,10 @@ class util {
 			String setString = setStamp.toString().substring(11, 16);
 			String noonString = noonStamp.toString().substring(11, 16);
 			System.out.println("Sunrise is at 05:55 and sunset is at 19:57");
-			System.out.println("Solar Noon is at 12:09");
-		} catch (Exception e) {
+			//#if Solar_noon
+//@			System.out.println("Solar Noon is at 12:09");
+			//#endif
+    	} catch (Exception e) {
 			e.printStackTrace();
 		}
     }
@@ -156,9 +164,15 @@ class util {
 			JSONObject wind = (JSONObject)dataJSON.getJSONObject("wind");
 			double speed = wind.getDouble("speed");
 			double direction = wind.getDouble("deg");
-			System.out.println("The wind speed is "+speed+speedUnit);
-			System.out.println("The wind direction is "+direction+" degrees");
+			//#if Speed
+//@			System.out.println("The wind speed is "+speed+speedUnit);
+			//#endif
+			//#if Direction
+//@			System.out.println("The wind direction is "+direction+" degrees");
+			//#endif
+			//#if Summary
 			System.out.println("The wind speed is moderate");
+			//#endif
     	} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -204,18 +218,44 @@ class util {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+    	//#if Current
     	getCurrentTemp();
-    	getRealFeelTemp();
-    	getTempRangePrediction();
-    	getPressureAndHumidity();
-    	getCloudCover();
+    	//#endif
+    	//#if Real
+//@    	getRealFeelTemp();
+    	//#endif
+    	//#if Prediction
+//@    	getTempRangePrediction();
+    	//#endif
+    	//#if Weather
     	getDescription();
-    	getVisibility();
-    	getSunRiseSet();
+    	//#endif
+    	//#if Rain_data
+//@    	getPressureAndHumidity();
+    	//#endif
+    	//#if Cloud
+//@    	getCloudCover();
+    	//#endif
+    	//#if Visibility
+//@    	getVisibility();
+    	//#endif
+    	//#if Sunrise_and_sunset
+//@    	getSunRiseSet();
+    	//#endif
+    	//#if Wind
     	getWind();
-    	getUV();
-    	getPOL();
-    	forecast();
+    	//#endif
+    	//#if UV-index
+//@    	getUV();
+    	//#endif
+    	//#if Airpollution
+//@    	getPOL();
+    	//#endif
+    	//#if Forecast
+//@    	forecast();
+    	//#endif
+    	//#if Activity
     	recommendation();
+    	//#endif
     }
 }
